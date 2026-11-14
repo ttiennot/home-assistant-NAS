@@ -1,0 +1,12 @@
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    # Le mode "host" est indispensable : la découverte des lumières Govee
+    # passe par du multicast UDP, qui ne traverse pas le réseau "bridge" de Docker.
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - /volume1/docker/homeassistant:/config
